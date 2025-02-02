@@ -29,16 +29,10 @@ def add(a: int, b: int):
     }
 
 
-
-
-
 @app.get("/hello") 
 def hello(name: str = "World"):
     name = name.strip().title()
     return {"message": f"Hello {name}!"}
-
-
-
 
 
 if __name__ == "__main__":
