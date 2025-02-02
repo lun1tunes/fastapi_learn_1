@@ -5,7 +5,10 @@ from pydantic import BaseModel, EmailStr
 
 import uvicorn
 
+from item_views import router as items_router
+
 app = FastAPI()
+app.include_router(items_router)
 
 
 class CreateUser(BaseModel):
