@@ -15,9 +15,7 @@ app.include_router(users_router)
 
 @app.get("/")
 def hello_index():
-    return {
-        "message": "Hello index!"
-    }
+    return {"message": "Hello index!"}
 
 
 @app.post("/calc/add")
@@ -25,11 +23,11 @@ def add(a: int, b: int):
     return {
         "a": a,
         "b": b,
-        "result" : a + b,
+        "result": a + b,
     }
 
 
-@app.get("/hello") 
+@app.get("/hello")
 def hello(name: str = "World"):
     name = name.strip().title()
     return {"message": f"Hello {name}!"}
