@@ -97,6 +97,44 @@ async def get_posts_with_authors(session: AsyncSession):
         print("author", post.user)
 
 
+async def get_users_with_posts_and_profiles(
+    session: AsyncSession,
+):
+    stmt = (
+        select(User)
+        .options(
+            joinedload(User.profile),
+            selectinload(User.posts),
+        )
+        .order_by(User.id)
+    )
+    users = await session.scalars(stmt)
+
+    for user in users:
+        print("*" * 10)
+        print(user, user.profile and user.profile.first_name)
+        for post in user.posts:
+            print("-", post)
+
+
+async def get_profiles_with_users_and_users_with_posts(session: AsyncSession):
+    stmt = (
+        select(Profile)
+        .join(Profile.user)
+        .options(
+            joinedload(Profile.user).selectinload(User.posts),
+        )
+        .order_by(Profile.id)
+        .where(User.username == "john")
+    )
+
+    profiles = await session.scalars(stmt)
+
+    for profile in profiles:
+        print(profile.first_name, profile.user)
+        print(profile.user.posts)
+
+
 async def main():
     async with db_helper.session_factory() as session:
         pass
@@ -135,6 +173,8 @@ async def main():
         # )
         # await get_users_with_posts(session=session)
         # await get_posts_with_authors(session=session)
+        # await get_users_with_posts_and_profiles(session=session)
+        await get_profiles_with_users_and_users_with_posts(session=session)
 
 
 if __name__ == "__main__":
