@@ -135,46 +135,55 @@ async def get_profiles_with_users_and_users_with_posts(session: AsyncSession):
         print(profile.user.posts)
 
 
+async def main_realations(session: AsyncSession):
+    # # await create_user(session=session, username="john")
+    # # await create_user(session=session, username="john")
+    # await create_user(session=session, username="alice")
+    # user_sam = await get_user_by_username(session=session, username="sam")
+    # user_john: User = await get_user_by_username(session=session, username="john")
+    # profile_sam: Profile = await create_profile(
+    #     session=session,
+    #     user_id=user_sam.id,
+    #     first_name="sam",
+    #     last_name="males",
+    #     bio="hi am gay!",
+    # )
+    # profile_john: Profile = await create_profile(
+    #     session=session,
+    #     user_id=user_john.id,
+    #     first_name="john",
+    #     last_name="boobs",
+    #     bio="ABOBA",
+    # )
+    # await show_users_with_profiles(session)
+    # await create_posts(
+    #     session,
+    #     user_john.id,
+    #     "SQLA 2.0",
+    #     "SQLA Joins",
+    # )
+    # await create_posts(
+    #     session,
+    #     user_sam.id,
+    #     "FastAPI intro",
+    #     "FastAPI Advanced",
+    #     "FastAPI more",
+    # )
+    await get_users_with_posts(session=session)
+    await get_posts_with_authors(session=session)
+    await get_users_with_posts_and_profiles(session=session)
+    await get_profiles_with_users_and_users_with_posts(session=session)
+
+
+async def demo_m2m(session: AsyncSession):
+    pass
+
+
 async def main():
     async with db_helper.session_factory() as session:
         pass
-        # # await create_user(session=session, username="john")
-        # # await create_user(session=session, username="john")
-        # await create_user(session=session, username="alice")
-        # user_sam = await get_user_by_username(session=session, username="sam")
-        # user_john: User = await get_user_by_username(session=session, username="john")
-        # profile_sam: Profile = await create_profile(
-        #     session=session,
-        #     user_id=user_sam.id,
-        #     first_name="sam",
-        #     last_name="males",
-        #     bio="hi am gay!",
-        # )
-        # profile_john: Profile = await create_profile(
-        #     session=session,
-        #     user_id=user_john.id,
-        #     first_name="john",
-        #     last_name="boobs",
-        #     bio="ABOBA",
-        # )
-        # await show_users_with_profiles(session)
-        # await create_posts(
-        #     session,
-        #     user_john.id,
-        #     "SQLA 2.0",
-        #     "SQLA Joins",
-        # )
-        # await create_posts(
-        #     session,
-        #     user_sam.id,
-        #     "FastAPI intro",
-        #     "FastAPI Advanced",
-        #     "FastAPI more",
-        # )
-        # await get_users_with_posts(session=session)
-        # await get_posts_with_authors(session=session)
-        # await get_users_with_posts_and_profiles(session=session)
-        await get_profiles_with_users_and_users_with_posts(session=session)
+        # await main_realations(session=session)
+        await demo_m2m(session=session)
 
 
 if __name__ == "__main__":
